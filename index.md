@@ -1,3 +1,0 @@
-# Check your privilege:
-
-- [ ] Privilege
