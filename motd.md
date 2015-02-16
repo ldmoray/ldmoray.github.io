@@ -9,3 +9,4 @@
 ## Tech
 * Error: lp0 on fire *check printer*
 * Modes in Vim are great; just press ESC whenever you aren't sure to go back to normal mode. :wq
+* Kernel Panic at the Disco
