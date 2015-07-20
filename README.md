@@ -1,2 +1,0 @@
-ldmoray.github.io
-=================
