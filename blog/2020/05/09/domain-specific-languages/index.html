@@ -1,0 +1,56 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../../static/style.css">
+<title>Musings on Domain Specific Languages — blog</title>
+<body>
+  <header>
+    <nav>
+      <ul class="nav navbar-nav">
+        <li><a href="../../../../../">Home</a></li>
+        
+          <li class="active"><a href="../../../../">Blog</a></li>
+        
+          <li><a href="../../../../../required-reading/">Required Reading</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div class="page">
+    
+ <div class="blog-post">
+  <h2>Musings on Domain Specific Languages</h2>
+  <p class="meta">
+    2020-05-09
+  </p>
+  <p>I used to be of the philosophy that simple statements that rely on some kind of internal understanding were optimal:</p>
+<p><code>piper_users = Users.objects.filter(active=True, logged_in=True, company='Piper')</code></p>
+<p><code>self.transform.rotation = self.transform.rotation + eulerAngle(Vector3(0, 90, 0))</code></p>
+<p><code>fig_id = soup.get(config.figure_id, None)</code></p>
+<p>Years ago, the argument was made to me that this can require a kind of internal understanding of third party libraries that fellow developers might not have. For the above, why is both <code>active</code> and <code>logged_in</code> set to true? Which axis is being rotated upon? Why are we calling <code>get</code> when most of the time we call <code>find</code> for single objects? This can lead to mistakes when similar actions need to be taken in a different location, or lots of effort/comments to explain what's going on peppered throughout the codebase.</p>
+<p>This leads to a desire to create an internal library of named actions that reflects the business or domain logic. Some people would be willing to classify it as a Domain Specific Language, though perhaps this is better called a Domain Specific Library.</p>
+<p><code>novartis_users = get_active_users_for_company("Novartis")</code></p>
+<p><code>self.turn_right()</code></p>
+<p><code>fig_id = find_fig_id(soup, config)</code></p>
+<p>This helps us be consistent and clear even if we're not worried about repeating ourselves. It helps us capture documentation for these behaviours inside a doc string instead of a comment. It helps prevent people from juggling nitty gritty details too close to the library when trying to walk through a logical flow or add new behaviour. This also helps if you decide to completely strip out the underlying library but I personally find that the weakest argument, even now, especially when the library choice might be so fundamental to the code base, like in Django or Beam.</p>
+<p>It also requires lots of naming and good organization, which is basically impossible, so I'm always struggling to accomplish it.</p>
+<p>This Library/Language also has the challenge of onboarding: new devs familiar with third party libraries need to be guided to using the internal one.</p>
+
+  </div>
+  
+    <h4>Tags</h4>
+    <ul>
+      <li>
+          <a href="../../../../../blog@tag/python">python</a>
+        </li>
+      <li>
+          <a href="../../../../../blog@tag/software development">software development</a>
+        </li>
+      
+    </ul>
+  
+
+  </div>
+  <footer>
+    &copy; Copyright 2025 by Lenny.
+  </footer>
+</body>

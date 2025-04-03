@@ -1,0 +1,80 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../../../../../static/style.css">
+<title>Streamlit Thoughts — blog</title>
+<body>
+  <header>
+    <nav>
+      <ul class="nav navbar-nav">
+        <li><a href="../../../../../">Home</a></li>
+        
+          <li class="active"><a href="../../../../">Blog</a></li>
+        
+          <li><a href="../../../../../required-reading/">Required Reading</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+  <div class="page">
+    
+ <div class="blog-post">
+  <h2>Streamlit Thoughts</h2>
+  <p class="meta">
+    2024-03-15
+  </p>
+  <h2>Intro</h2>
+<p>Imagine you're a software developer at a small to midsized company. Most of the time, you're focused on some esoteric "data" or "ml" stuff, like encoding images, tracking trucks in gps, or translating a bunch of news articles to Ancient Greek. Eventually, you notice some part of your daily workflow is absurd. "Oh yeah, let me just run this sql query, save the results to a csv, upload that to Google Drive and send it to a colleague who'll check each row for correctness."</p>
+<p>You think to yourself "I write software, surely there's a way I can automate part of this, and the parts I can't I can at least make more pleasant than a spreadsheet."</p>
+<p>This is roughly the position I found myself in a few weeks ago. My coworkers in another department are doing some prompt engineering ("Lenny's thoughts on LLMs and the modern AI movement" is a blog post for another time) and their workflow is awful:</p>
+<ol>
+<li>Use an ipython notebook hosted via Google Colab to write and execute an experimental prompt. The goal is to convert a paragraph into a complex data structure</li>
+<li>Save the results to Google Sheets</li>
+<li>Go through each key of the complex data structure and evaluate it for correctness</li>
+<li>Take the learnings and try to tweak the prompt a bit, creating a new notebook to keep "history"</li>
+</ol>
+<p>Pretty straightforward app in all honesty, there's a million tools I could use. I was told to use Streamlit.</p>
+<p>So I did.</p>
+<p>And boy do I have thoughts.</p>
+<h2>What is Streamlit</h2>
+<p>Streamlit (and Shiny, and a few others) tries to accomplish a simple goal: you wrote a script to automate some tasks, especially related to visualizing or editing some "data", and want to make it a visual UI instead of a commandline thing. Replace <code>print</code> with <code>streamlit.write</code>, replace <code>pyplot.show</code> with <code>streamlit.pyplot</code> and continue to use pandas inside. You can then run the streamlit command and get a web interface, and deploy that either to their cloud or your own webserver.</p>
+<p>This is very cool. Add in various kinds of input and you've got yourself all the bits you need to write an interactive website without the need for silly things like html or javascript. If you're deeply intimidated by the modern world of webdev, with its transpilation and bundling and node_modules, this is great. If you hear "backend" and freeze up, this frees you from thinking about routing endpoints to functions and terms like "models", "views", and "controllers" can be forgotten about.</p>
+<h2>Cool Things</h2>
+<p>Seriously, I cannot stress enough that this is fast to build with. I've never felt feaster bringing an idea to existence as I have this past week. Some of that is me using BigQuery to store my data, so I throw away things like a data later, orm, or migrations.</p>
+<p>I'm able to mix layout and logic pretty seamlessly, since it's all Python. It reminds me of writing tkinter, but unlike tkinter I control the deployment. Instead of struggling with python installs or building exes for Windows users from my Mac, I can deploy it to an internal webserver (thanks to the hard work of my infrastructure peers who solved things like auth* at the load balancer level). It actually makes a web based application feel like a smart thing and not a mistake compared to just building a desktop app.</p>
+<h2>State</h2>
+<p>Using streamlit is odd. It doesn't feel like writing an io loop, and the magic makes me question my understanding of the world.</p>
+<p>Every time a user sends an event to the server - exiting a text field or selecting a checkmark - it reruns the whole script, top to bottom.</p>
+<pre><code>name = st.text_input("your name")
+if name:
+  st.write(name)
+</code></pre>
+<p>The first time the app is run, it displays a text box but nothing else. After a user types into the text field, name is populated with the result and it's also written. How does this work? There's a secret <code>session_state</code> object that contains every element and their results. You do have access to the <code>session_state</code> and can use that to store your own state in addition to the elements. Finally certain elements, like buttons, expose a callback which are processed on interaction before the rest of the script is run, allowing you to manipulate the state.</p>
+<p>Global state, that contains both user (things like a Finite State Machine to represent a workflow) and the ui state? Callbacks that reach in and manipulate the global state?</p>
+<p>I think this exposes the lie at the heart of software development so concisely it hurts. I can have beautifully architected code, that's isolated and easily testable. Or I can make something useful faster than it took to write this post. Every other issue is a nitpick, and I'll share them, but this is the core of it. To quote Tom Scott, streamlit is a "bodge". It promotes the worst practices, like combining layout and logic, and makes it feel good.</p>
+<p>I've been building this little tool with a peer, and it's been hell. Every PR has wild impacts we can't predict on the other's work. There's no tests, refactoring is a pain, and as we add features the script gets more and more chaotic. At the end of the second week, we're left with two options to not get trapped in a living hell of our own making:</p>
+<ol>
+<li>Throw it all out and start again with a more diligent approach</li>
+<li>Close the book, call it done, and walk away</li>
+</ol>
+<p>This is streamlit's biggest strength and the folly of "products". We need to stand firm and say "no this is a tiny thing that solves one problem" and call it finished. If we can do that, if our users can accept that, streamlit is amazing. But the desire to add more, to please, to assign a "product owner" and become self justifying is too great.</p>
+<p>I can only pray I'm strong enough.</p>
+
+  </div>
+  
+    <h4>Tags</h4>
+    <ul>
+      <li>
+          <a href="../../../../../blog@tag/python">python</a>
+        </li>
+      <li>
+          <a href="../../../../../blog@tag/software development">software development</a>
+        </li>
+      
+    </ul>
+  
+
+  </div>
+  <footer>
+    &copy; Copyright 2025 by Lenny.
+  </footer>
+</body>
