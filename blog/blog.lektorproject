@@ -1,0 +1,6 @@
+[project]
+name = ldmoray.github.io
+
+[packages]
+lektor-tags = 0.5.2
+lektor-jinja-content = 0.4.4

@@ -1,0 +1,38 @@
+title: Musings on Domain Specific Languages
+---
+author: Lenny
+---
+body:
+
+I used to be of the philosophy that simple statements that rely on some kind of internal understanding were optimal:
+
+`piper_users = Users.objects.filter(active=True, logged_in=True, company='Piper')`
+
+`self.transform.rotation = self.transform.rotation + eulerAngle(Vector3(0, 90, 0))`
+
+`fig_id = soup.get(config.figure_id, None)`
+
+
+Years ago, the argument was made to me that this can require a kind of internal understanding of third party libraries that fellow developers might not have. For the above, why is both `active` and `logged_in` set to true? Which axis is being rotated upon? Why are we calling `get` when most of the time we call `find` for single objects? This can lead to mistakes when similar actions need to be taken in a different location, or lots of effort/comments to explain what's going on peppered throughout the codebase.
+
+This leads to a desire to create an internal library of named actions that reflects the business or domain logic. Some people would be willing to classify it as a Domain Specific Language, though perhaps this is better called a Domain Specific Library.
+
+`novartis_users = get_active_users_for_company("Novartis")`
+
+`self.turn_right()`
+
+`fig_id = find_fig_id(soup, config)`
+
+This helps us be consistent and clear even if we're not worried about repeating ourselves. It helps us capture documentation for these behaviours inside a doc string instead of a comment. It helps prevent people from juggling nitty gritty details too close to the library when trying to walk through a logical flow or add new behaviour. This also helps if you decide to completely strip out the underlying library but I personally find that the weakest argument, even now, especially when the library choice might be so fundamental to the code base, like in Django or Beam.
+
+It also requires lots of naming and good organization, which is basically impossible, so I'm always struggling to accomplish it.
+
+This Library/Language also has the challenge of onboarding: new devs familiar with third party libraries need to be guided to using the internal one.
+
+---
+pub_date: 2020-05-09
+---
+tags:
+
+python
+software development

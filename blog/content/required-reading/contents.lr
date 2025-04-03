@@ -1,0 +1,11 @@
+_model: page
+---
+title: Required Reading
+---
+body:
+
+This is a list of blog posts I find incredibly relevant at all times. They deserve periodic review which is why they're highlighted here. Maybe one day one of my own posts will qualify.
+<ul>
+<li> <a href="https://mikehadlow.blogspot.com/2012/05/configuration-complexity-clock.html"> The Configuration Complexity Clock</a> </li>
+<li> <a href="https://hynek.me/articles/python-subclassing-redux/"> Subclassing in Python Redux</a> </li>
+</ul>
