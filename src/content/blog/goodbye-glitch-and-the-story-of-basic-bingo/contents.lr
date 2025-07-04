@@ -1,0 +1,33 @@
+title: Goodbye Glitch and the Story of Basic Bingo
+---
+author: Lenny
+---
+body:
+
+Today I say goodbye to glitch.com, and quite possibly one of the most useful applications I've ever created.
+
+Websites are actually really cool. They're great for expressing one's self or more importantly helping people. But they need hosting, and hosting is a pain. Doubly so if you want things like "connectivity" and "persistence". Enter Glitch.
+
+Glitch is (was) a bit like jsfiddle, but powered up. Much like JSFiddle it let you write javascript you can share with your friends, but unlike jsfiddle it let you write node applications that had access to a persistent file system. It was free, with caveats on how many hours of compute you used up hosting the application, and it was incredibly easy to make a new site, or grab someone else's and remix it. I had used glitch for for a few little toys, and really liked it. Brilliant idea, easy to use. Yes it was a centralized platform for hosting websites, and those are a pain, but it also had so much more freedom and power than anything remotely like it. But it was free, and free things are doomed.
+
+When Covid-19 first landed in North America, I don't think we realized just how impactful it was going to be. How long lived. I think we still haven't, because it is not past-tense yet based on waste water data in my city. And one thing it changed was how people socialized and played.
+
+At the time, a friend of mine worked in "Life Enrichment" at a retirement home. A job not unlike a camp counsellor, much of her day to day was designing and running activities for the retirees. Bingo was pretty popular, run multiple times a week at just her location of a massive business. Gathering everyone into a hall to yell out bingo numbers stopped being an option, doubly so for those residents in an isolation ward. One thing they tried was having her stand in the hallway, yelling out numbers to folks still in their rooms. But the residents couldn't hear.
+
+Now, she happened to have an iPad cart for other activities. Enough iPads that every resident could have one, but there wasn't a bingo app that just shared the numbers. They still had the physical cards, which is what every bingo app tried to replace. After idly complaining to me about what didn't exist, I had a product spec:
+
+1. Create a game
+2. Register the iPads to the game
+3. Drawing the next number from the host account should trasmit it to all iPads
+4. Large font display and Speech to Text for multi modal communication
+5. Easily start a new game with the registered iPads
+
+None of that sounded too complicated. A simple database to store games, a human typable shortcode to register a client to the game, and longpolling to check if a number was updated. Hosting would be a pain, but remember: glitch. So in an evening, with a bit of back and forth, I built it. It wasn't pretty from a visual or code standpoint, but it did the job. She shared it around with other homes, and ultimately it would be used for a few hours a week to bring some small joy to some retirees who otherwise couldn't go to a bingo hall.
+
+Every so often I'd check on it. Yup, it's still running, still getting a few users. My friend moved on from Life Enrichment to more responsibilities, but the usage continued. I'd forget about it for months, then remember that time I made a webapp that had more users than some of the venture capital backed projects I've worked on. Yup, still going. I collected no user information, the only cookies were used to store the game code, no analytics beyond glitch's compute counter, and wiped the database every month except for the auto incrementing primary key for games.
+
+And then the email. Glitch was being "My Incredible Journey" and would be shutting down. I had no way of contacting my users (by design), but I tried my best to rescue the site, setting it up on a real hosting platform. It was more work, certainly, but also good practice. I tried using their in built redirect to help my users find the new host, but log ins stopped working by the time I had it set up. I'll keep trying, but my faith is low.
+
+For those curious, you can find the new host at https://basicbingo.nfshost.com. And if you ever used basic-bingo.glitch.me and found this through some desperate search, know its still therefore you.
+---
+pub_date: 2025-07-04
