@@ -1,0 +1,34 @@
+title: What Even Is A Manager
+---
+author: Lenny
+---
+body:
+
+Back when I worked "retail" (in restaurants and amusement parks), I had managers. I generally got along with them, and a large part of that is because I understood what it is they did there. A manager was responsible for:
+* Scheduling, of shifts, of breaks, and of tasks
+* Enforcing policy dictated by on high
+* Managing interpersonal conflicts, whether staff/staff or staff/customer
+* More sign off and leeway when it comes to cash, directly.  Managers could apply discounts, mark items for trash, and counted out our tills at the end of a shift
+
+Sure, a manager could hop on a till during a lunch rush, but ultimately management really benefits from [slack time](https://kanbanzone.com/2019/slack-time/). If they're busy at a till they can't jump in to defuse a conflict or notice that everyone has untucked their shirts in the summer heat.
+
+Now that I'm in my career as a white collar creative professional, I find myself struggling to understand what is meant by "Manager". We've got "customer success managers" and "product managers" (not to be confused with "technical product manager") and "project managers" and "engineering managers". More than my personal struggles with my own "manager" (despite the excellent advice in [Julia Evans' Zine](https://wizardzines.com/zines/manager/)), I also see the different managers struggle against each other. What is the difference in responsibilities between an EM, PjM, and PM? They seem to be colliding and fighting with each other all the time.
+
+I am a programmer. Encapsulation and bundling responsibilities is the name of the game. Obviously single responsibility is out the door, but what if we approach this from the ground up. I'm going to ask myself the question "what needs to happen inside a healthy software development team", and then after we're done perhaps we can bundle these functions together into job titles.
+
+### The Code
+The first and most obvious function is **writing the code** itself. Someone has to sit down and type whatever is required into the computer. Maybe one day that typing can be replaced with talking, and instead of coding in Python or Java or Assembly we'll be using some kind of common business oriented language that sounds pretty close to normal speech and just an artificial intelligence to translate our words into an executable. But even then, someone has to do that actual work in all its tedium.
+
+I'm no cowboy, and firmly believe in **Code Review**. Code review performs some vital functions: ensuring standards are kept; reducing bus factor as more people know about the same section of code; the often squishy act of grounding peers as a team versus a collection of individuals. I also believe that the reviewer of some code carries more responsibility/ownership of it than the writer, and that responsibility/consequence helps lead eventually to a more positive engineering culture.
+
+If we're reviewing the code, how do we know the process of code review is performing well. Is the reviewer a good educator? Are the reviews comprehensive while staying timely, or have we created a bunch of "LGTM" automations to avoid gate keeping? Are cliques and/or load bearing reviewers starting to appear, or is the load spread evenly? Answering these questions requires a kind of **Review of Code Reviews** or **MetaReview**.
+
+In theory, this pattern repeats infinitely. Are the reviews-of-reviews working well? let's introduce a review-of-reviews-of-reviews. Each layer we lose detail, and detail is how we can create meaningful actions or change. We'll stop here, but someone _outside_ the core team might be interested to monitor the reviews at these higher and higher stages. Perhaps this is what a director does - I wouldn't know.
+
+Regardless, we have our first three functions. Coding, Reviewing Code, and MetaReview.
+---
+pub_date: 2025-06-06
+---
+_discoverable: no
+---
+_hidden: yes

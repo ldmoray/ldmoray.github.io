@@ -17,7 +17,7 @@ Years ago, the argument was made to me that this can require a kind of internal 
 
 This leads to a desire to create an internal library of named actions that reflects the business or domain logic. Some people would be willing to classify it as a Domain Specific Language, though perhaps this is better called a Domain Specific Library.
 
-`novartis_users = get_active_users_for_company("Novartis")`
+`piper_users = get_active_users_for_company("Piper")`
 
 `self.turn_right()`
 
