@@ -1,0 +1,80 @@
+:root {
+    color-scheme: light dark;
+}
+
+body {
+    font-family: 'Verdana', sans-serif;
+	margin: 0px auto;
+	max-width: 650px;
+	line-height: 1.6;
+	font-size: 18px;
+	padding: 0 10px;
+	color: light-dark(#444, #fefefe);
+    background-color: light-dark(#fefefe, #444);
+}
+
+h1, h2, h3, h4 {
+	line-height: 1.2;
+    margin-block: .8em auto;
+}
+
+p {
+    margin-block: 1em auto;
+}
+
+p.pub_date {
+    margin-block: 0 auto;
+}
+
+header,
+footer,
+div.page {
+    margin: 10px auto;
+    padding: 20px auto;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 8px 0 0;
+    padding: 0;
+}
+
+a:link {
+    color: #2aa198;
+}
+
+a:visited {
+    color: #6c71c4;
+}
+
+header nav a:visited {
+    color: #2aa198;
+}
+
+code {
+    font-family: 'Comic Mono', monospace;
+}
+
+div.tags {
+    margin: 0;
+}
+
+div.tags h4 {
+    margin: 0;
+}
+
+div.tags ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.tags ul li {
+    display: inline;
+}

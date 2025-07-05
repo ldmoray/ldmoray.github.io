@@ -1,6 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
-<link rel="stylesheet" href="{{ '/static/style.css'|url }}">
+<link rel="stylesheet" href="{{ '/static/lenny_style.css'|url }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/index.css">
 <title>{% block title %}Welcome{% endblock %} — blog</title>
 <body>
   <header>
@@ -17,11 +18,13 @@
         {% endfor %}
       </ul>
     </nav>
+    <hr>
   </header>
   <div class="page">
     {% block body %}{% endblock %}
   </div>
   <footer>
+    <hr>
     &copy; Copyright 2025 by Lenny.
   </footer>
 </body>

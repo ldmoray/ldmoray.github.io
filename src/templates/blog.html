@@ -2,9 +2,10 @@
 {% from "macros/pagination.html" import render_pagination %}
 {% block title %}{{ this.title }}{% endblock %}
 {% block body %}
+  <h1>Blog Roll</h1>
   {% for child in this.pagination.items %}
     <h2><a href="{{ child|url }}">{{ child.title }}</a></h2>
-    <p>{{ child.pub_date }}</p>
+    <p class="pub_date">{{ child.pub_date }}</p>
   {% endfor %}
 
   {{ render_pagination(this.pagination) }}
