@@ -1,0 +1,33 @@
+title: Some Arguments for a Monorepo
+---
+author: Lenny
+---
+body:
+
+When working on open source projects, it makes a lot of sense to make a single executable or library be a single repo in your VCS of choice. When working with GitHub, that lets you have explicit versions leveraging tags and the release feature, isolated issues, wiki. If you're a large scale organization like Apache with many projects, their relationships might be tenuous. Just because someone wants Apache HTTP Server doesn't mean they want Apache Spark, and the boundaries between those two projects is as formal as the distance between either of them and any unrelated project with its own governance structure.
+
+But when you're working inside a company, things get a lot fuzzier. How formal should the interfaces between teams be? How often do you want to support two versions of the same project, especially if you're building a website (or "Software as a Service" as its called these days)? With open source packages, you can just install them from the standard package repository of your choice, but it turns out making your own version of PyPI is actually a lot of work and maintenance burden. If you build a little dev tool to help you accomplish your broader goals, and you're the only consumer, should that be its own project and repository?
+
+On top of all that, setting up version control is a lot of work. You need to pick a solution — git has won today, but that wasn't always true. Need to host the remotes, and either pay for that service or add the maintenance burden. Then access controls. Continuous Integration and Deployment. Linting rules and pre/post commit hooks. Sure, someone could set up a cookie cutter with all your business rules, a making it easy (or at least easier) to standup a new repository. But any improvements to the cookie cutter don't propagate to the existing repositories.
+
+Instead, build it all once and have a single repository that can support many projects inside it. A *monorepo*. Unifying on a language makes sharing libraries trivial, especially if the entire repository is technically a single library. Official releases can be de-emphasized over continuous deployment, since you're dependency on another team isn't (and perhaps cannot be) version pinned. Any improvements to developer experience are universal, and debates about if a developer tool should be its own repo are a thing of the past. Monorepos don't need to unify on language either, in fact a "JS + Backend" is pretty common. And with a build tool that supports many languages (like Bazel), arbitrary cross language dependencies are even viable.
+
+The Monorepo approach isn't without its downsides of course. The gets big and moves fast. Poor choices of CI tooling/workflows compound and can lead to rerunning thousands of unrelated tests. When another team breaks their system, it hard breaks you too, even without any dependencies between you. I'm used to python, and setting everyone's python codebase into a single package with a single requirements file. That means upgrading external dependencies can move at a glacial pace. It's possible to go back to multiple environments and individual packages, but that's starting to bring back the pain of library deployment. 
+
+Folder layout becomes king, and without a good hand steering that wheel it can quickly devolve into a cluttered mess. It's all about balancing the friction of starting a new project and leading to disorganization. As an example, a heavy CODEOWNER file that prevents other teams from modifying your area of the codebase is great, until it also prevents you from making a new conceptual project without throwing a ticket up to admins/devex. That leads to [desire paths](https://en.wikipedia.org/wiki/Desire_path) of just sticking the new project in a folder they alreayd have control over.
+
+When you couple orchestration/Infrastructure-as-Code and the development code in the same repository, things can get a little weird as well:
+* Develop a feature on a branch
+* Merge it into main after review
+* CI triggers a build which compiles your code into a docker image and deploys it to a repository
+* Make a deployment branch
+* Modify the IaC files to reference the new artifact
+* Merge into main after review
+
+A one line fix now requires two PRs. There are ways around this as well, like always deploying HEAD. Again, it's about tradeoffs.
+
+A lot of people see "monorepo" and they think "monolith", but that's really not true. Monorepos trade one form of headache for another, but I find them an effective way to organize a business's code and maximize their return on investment for CI/CD and Developer Experience. Your business does care about those, right?
+---
+pub_date: 2025-03-02
+---
+tags: programming
