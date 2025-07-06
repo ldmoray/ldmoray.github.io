@@ -4,17 +4,20 @@
 
 body {
     font-family: 'Verdana', sans-serif;
-	margin: 0px auto;
-	max-width: 650px;
-	line-height: 1.6;
-	font-size: 18px;
-	padding: 0 10px;
-	color: light-dark(#444, #fefefe);
+    margin: 0px auto;
+    max-width: 650px;
+    line-height: 1.6;
+    font-size: 1.125em;
+    padding: 0 10px;
+    color: light-dark(#444, #fefefe);
     background-color: light-dark(#fefefe, #444);
 }
 
-h1, h2, h3, h4 {
-	line-height: 1.2;
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.2;
     margin-block: .8em auto;
 }
 
@@ -33,6 +36,7 @@ div.page {
     padding: 20px auto;
 }
 
+
 header nav ul {
     list-style: none;
     margin: 0;
@@ -43,6 +47,44 @@ header nav ul li {
     display: inline;
     margin: 0 8px 0 0;
     padding: 0;
+}
+
+#navbar-check,
+.checkbtn {
+    display: none;
+}
+
+
+@media only screen and (max-width: 768px) {
+
+    /* hamburger menu */
+    .menu {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        background-color: light-dark(#fefefe, #444);
+    }
+
+    .checkbtn {
+        font-size: 1.5em;
+        display: block;
+    }
+
+    #navbar-check:checked~.menu {
+        display: block;
+    }
+
+    header nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    header nav ul li {
+        display: block;
+        margin: 0 8px 0 0;
+        padding: 0;
+    }
 }
 
 a:link {

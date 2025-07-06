@@ -6,7 +6,9 @@
 <body>
   <header>
     <nav>
-      <ul class="nav navbar-nav">
+      <input type="checkbox" id="navbar-check">
+      <label for="navbar-check" class="checkbtn">=</label>
+      <ul class="menu nav navbar-nav">
         <li{% if this._path == '/' %} class="active"{% endif
           %}><a href="{{ '/'|url }}">Home</a></li>
         {% for href, title in [
