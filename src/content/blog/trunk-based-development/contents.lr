@@ -1,0 +1,62 @@
+title: Advice for Trunk Based Development
+---
+author: Lenny
+---
+body:
+
+We've already discussed some [advantages of a Monorepo](/blog/2025/03/02/arguments-for-monorepo/) when it comes to developer experience, but what's the ideal flow for a version control repository? [Trunk Based Development](https://trunkbaseddevelopment.com/) is a path forward that's ideal for teams with continuous(ish) deployment, with a focus on a single shared branch (the trunk) that contains most of everyone's code as soon as possible.
+
+I'm a big proponent of "scaled trunk", which leverages short lived feature branches, even for as little as two people. Code review is a powerful artifact and process.
+
+The linked site goes into a lot of details, some of which are so natural and obvious to me that it feels like describing the air I breathe.
+
+A simple workflow:
+1. Grab the latest ticket in your ticketing system, assigned to you, and marked in progress
+2. Pull the latest version of main (or "trunk", but I'm just going to call it main from now on)
+3. Create a branch
+4. Do the work. Hopefully this whole thing was "short", which we'll get into
+5. Write some tests, and ensure your change doesn't break anything unexpected in the existing tests
+6. Create a code reviewable object (a "PR" in github)
+7. Get it reviewed. Hopefully this is also fast, which we'll get into
+8. Merge
+9. Clean up: delete the branch, close the ticket, and loop.
+
+Trunk based development is built around two main lessons:
+1. Merging is a pain in the ass. Merging small things often is easy (that's just a commit with more steps), merging big things rarely is incredibly hard.
+2. Main should always be in a state that's ready to deploy. This means both that it's always buildable or functional or whatnot. But also that as you merge things, those things are "complete" and do not depend on other work to function. If they aren't complete, then they are merged in such a way that they cannot be seen, or the parts they don't do are clearly marked.
+
+If you're working somewhere that isn't willing to invest enough in things like a good ticketing system, or the effort to plan well sized tickets (I promise, we'll talk about this), or a fast Integration system that can run a suite of tests against the code base, then Trunk Based Development is not going to work.
+
+So what do you gain by adopting these two philosophies? First of all, the ability to deploy main at any time cannot be understated. Experimentation is great, but most critically is bug fixing. Even if you don't deploy every commit, if the process is too onerous and you cannot trust that it will work, then how can you fix anything without waiting an entire cycle? That erodes trust between you (the business) and the customer, but also you (the dev team) and the rest of the business. The other main reason I advocate for trunk based philosophies is that merging is a lot of work. And no matter what, you're going to do that work. You can either put it off for the dreaded merge day when 5-50 developers all try to get thousands of conflicting lines of functionality into the build at the last minute, or can take bite sized chunks and structure that work into every hour.
+
+It takes 5 minutes to add a guard to check if an environment variable is set, and only show the new feature if it is. Boom, you can ship a technically incomplete feature now and can constantly be testing as you work that it works with everyone else's...work. It's important to clean up of course, a ticket to delete all the guards for a feature when it's not just "default on" but always on.
+
+The more often you do anything, the easier it becomes. But procrastination doesn't just mean you'll be out of practice at how to merge and how to do code review. It also means the work will be more likely to have conflicts, which will require manual intervention to fix, which runs the risk of not fixing. Or no merge conflict but just straight up no functionality between two systems that are only actually seeing each other after "all" the work was done.
+
+The goal is to avoid drift between developers, the product, and the spec. All three need to be alignment and not making assumptions about the others.
+
+# Practical Advice
+
+## Branches
+Branches should be short lived. What that means is always in flux, but 1 hour to 1 week are the extremes. That's from when they're first cut to when they get reviewed, merged, and deleted. If it lives for more than a day or so, make sure to bring the changes from main back into your branch (merge or rebase. I don't care, I'm not your dad).
+
+I recommend only having a single author, but pair programming is great. Just avoid "I do one commit, push it, they pull the branch, do a second commit, push it. That gets merged to main." Try to have made that two independent short lived branches.
+
+## Scope
+Keep each PR focused on one things. Functional changes and refactors should be kept separate. Isolate helpers/devtools that aren't part of the main functionality of the application. They often don't need the same level of test coverage or nitpickery. Infrastructure-as-Code changes independent of the functional implementaion.
+
+If your ticketing system assumes 1 ticket = 1 PR with some kind of automation, make sub tickets or "related" tickets. If you're not allowed to because it counts as "changing scope" have a serious discussion with whoever is telling you this, I'm sure their reports can be adapted. Either by allowing multiple PRs per ticket or moving estimates around.
+
+## Experimental Code
+**Do not run code off a branch**. I don't mean "don't run a local server for testing". Both the test suite and even spinning up some application and clicking around or whatever. I work in data, and that often involves treating the code as means to the end of either some report or data transformation. But just because it's a means to an end doesn't mean it shouldn't be sacrosanct.
+
+If you're creating a report or a visualization, merge the code that creates it first unless you're committing the report as well (yes that's arguably two things in one PR, but these are guidelines not Commandments). If you don't commit the report, or not in the same PR, make sure the report includes the commit identifier that was used to create it, along with the date and state of the inputs. Reproduceability is critical and only doable with some insight into how the report was created.
+
+When doing scale testing or some kind of super-compute related task, merge it first. You can either rollback or put the new code behind a feature flag. Any scale test large enough to be meaningful is also large enough to cost real money. Why throw out the results because they were a test? Keep it in official production, then reuse it when that becomes the default.
+
+## **MAIN SHOULD NEVER BREAK**
+It will, but it should be a break glass moment. Identify the problem, roll it back, automate as much as possible to make that easy, and automate as much as possible to make that problem not happen again. Especially if you're working in a monorepo, breaking main (ie no one can merge because an unrelated test is failing) is a catastrophic p0 that requires focus. Blame isn't helpful, and we never end on "human error" in a retro, but a retro needs to be held.
+---
+pub_date: 2025-03-23
+---
+tags: programming
