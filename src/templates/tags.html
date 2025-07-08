@@ -1,9 +1,11 @@
-<h1>Tag: {{ this.tag }}</h1>
-<h1>Items:</h1>
-<ul>
-  {% for i in this.items %}
-    <li><a href="{{ i|url }}">{{ i._id }}</a></li>
-  {% else %}
+{% extends "layout.html" %}
+{% block title %}Tag: {{this.tag | title}}{% endblock %}
+{% block body %}
+<h1>{{ this.tag | title }}</h1>
+{% for i in this.items %}
+    <h2><a href="{{ i|url }}">{{ i.title }}</a></h2>
+    <p class="pub_date">{{i.pub_date}}</p>
+{% else %}
     <li><em>No items.</em></li>
-  {% endfor %}
-</ul>
+{% endfor %}
+{% endblock %}
