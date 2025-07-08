@@ -1,0 +1,81 @@
+title: Can We Project Manage? Yes We Kanban
+---
+author: Lenny
+---
+pub_date: 2025-04-13
+---
+tags: programming; project management
+---
+body:
+
+Organizing work is a headache. Even when you're solo, though very different challenges there. When coordinating across a team you need to prevent duplicate work, handle prioritization between tasks, and expose hidden relationships between them. The simplest possible project management system is a todo list, everyone's favourite demo application. But a pure todo list (just checkboxes) has no way of preventing duplicate work. You need some way to put a lock on a task so no one else starts it.
+
+This is where Kanban starts. Based off Toyota's Lean Manufacturing process, it's been deeply corrupted and folded into software engineering practices. Some of these things are so obvious it feels like breathing (much like requirements for a monorepo), so assume I'll take various things for granted. Kanban derives from a Japanese word for "signboard" and it's where we start. Identify some wall in your office (or, if you work remotely/digitally in any form, a trello board. I used to say Trello was the only good web app), and cover it in sticky notes. Each note is a ticket, or task, or unit of work. Call it whatever.
+
+Use some tape to divide the wall into three columns: todo, doing, done. Order the sticky notes so the most important ones are at the top. When someone comes up with a task, it goes in "todo". When they start to work on it, they move it to "doing". When it's finished, it's placed in "done". I know this sounds revolutionary, but the techniques actually trace their history back to the late 1940s. That's about 30 years before the invention of the [Post-It Note](https://en.wikipedia.org/wiki/Post-it_note#History), kind of wild that Toyota used time travel just to bring sticky notes back to post-WWII Japan.
+
+This is the first principle of Kanban: *visualize the workflow.* By having a chart of the state of work, we can start to improve things.
+
+People cannot literally multitask, at least where it comes to tasks like coding. The physical act of typing can only be done for one of the tasks, to say nothing of the cognitive load of understanding and solving a problem. We want to *control the workflow* — the second principle — to make sure it accurately reflects what is actually happening, and get that work completed. The simplest form of this is the Work in Progress limit. With 5 developers, maybe only 5 things are allowed to be in "doing" at a time, and if you want to pick up another task, first you need to help one of the 5 current tasks become completed.
+
+The final principle is to reflect on the workflow and change things to *improve the workflow*. Maybe it turns out nothing is allowed to be considered done unless Steve reviews it, and that's why everyone is sitting on their butts but we're at WIP limit. Make a new column for "Steve's Review", give it a separate WIP limit, and make sure Steve is churning through review. Maybe later it's time evaluate why Steve is the only one allowed to review things, and democratize review. Or even remove it if it no longer makes sense.
+
+That's it. You know Kanban now. There's a more on the [Kanban Guide](https://kanbanguides.org/the-kanban-guide/2020.12/) but honestly not that much more. It's still worth reading. Of course, I've been doing Kanban ("visualize, control, improve", at least) for close to a decade now, so I've got some lessons that form the baseline I like to suggest to any team as a starting point.
+
+## Units of Work
+I've already [shared what I think appropriate work size is](/blog/2025/03/23/trunk-based-development/), but to repeat: 1 hour to 1 week of work, but bias towards less. Any Unit of Work needs a definition of done. Sometimes that's pretty self evident, and that's ok. "Bug: the user's name appears in Mandarin when language set to Italian." can be defined as done when it stops doing that. Sometimes it's less obvious, "Train a better sentiment analysis model" requires really defining what "better" means and setting some targets for good enough to ship. Work is not sized without knowing what completion looks like.
+
+Now that you have a definition of done, you can actually tell if it's too much work for a single ticket, but to be honest 10 tickets that need to be done in exact sequence aren't necessarily better than 1 big ticket that captures all the work more generally.
+
+## Estimation
+Yes, we need to estimate. Estimating is a skill. It's very hard. You (and I) need practice. We also need to take some time every so often and review our estimations, otherwise we can't get better. Celebrate accurate estimatations, and study bad ones. Are there patterns?
+
+I like to imagine that estimation is a 3 dimensional vector:
+* Time — how long will it take?
+* Complexity — is the solution obvious, or is this completely novel?
+* Learning — are you coming into this as an expert or is it a growth opportunity?
+
+Updating a 3rd party dependency with breaking changes is time consuming but straight forward (generally). Rare edge cases can be pretty complicated to properly model, but might be pretty fast to actually type out. Remember, people are not interchangeable. Familiarity is a huge aspect of time and complexity, but so is interest and personal strengths. Some people are just better at finding bugs, and others find joy in what some call tedious. Even then, over the course of a day or week, people want to flex different muscles. 10 highly complex but fast tasks without a break can exhaust even the most enthusiastic puzzle lover. Something to consider when filling the work queue and when selecting the next task.
+
+Most systems like jira collapse this personal vector into a single value which I view as the vector's magnitude. Story points and T-Shirt Sizes try to balance this simplification with ambiguity. That's why fibonacci is so beloved. As things get bigger, we get worse at estimating them. Pick anything that makes sense, but any single value leaves a lot of information on the table. They also tend to end up being mapped to "time" eventually. "oh yeah a story point is 1 day of dev work" is a deeply common phrase that cuts to the quick.
+
+Estimation happens in three phases:
+1. Someone works alone to define a ticket, and uses the Unit of Work guidelines to make the ticket well sized.
+2. The team gets together and estimates as a group. This is a chance to be critical and discuss from your own point of view. "I've never worked on this system, so I'd need to learn more about it during the ticket." Doing this helps make sure anyone can grab the work, everyone is informed about the systems the team works on, and uses the power of the crowd to reveal biases the creator of the ticket might not have noticed.
+3. Once work actually starts, the individual contributor might realize something was missed. The earlier the estimate is updated, the better. That helps us control the workflow and make sure things actually finish. These updates may come in the form of increasing the estimate or adding new tickets.
+
+## Periodicity
+Kanban is technically endless. A constant stream of new tasks. This is frankly exhausting. Creating some kind of periodicity gives some structure and rest points. How often should we gather to estimate as a team? How often do we reflect on what's working and propose changes?
+
+Wait a second, that's **Planning** and **Retrospective**. Is this just [Scrum](https://scrumguides.org/scrum-guide.html)?
+
+It turns out scrum has some good ideas. I know that can be hard to admit but it's ok. I believe in you reader, you made it this far, you can admit scrum isn't the devil.
+
+Unlike scrum, the period ("sprint") isn't some inviolable artifact. It's ok to create tickets, adjust priorities, grab extra from todo, or rollover some tickets. We're "agile".  Actually the scrum guide doesn't say you can't do those things. They're just focused on the sprint goal and working with a product owner to renegotiate as the team learns more. I'm sure this is inconsistency is fine.
+
+The periodicity is to give us natural rest points, to have time to focus on the workflow instead of just the work, and to recognize project completion. Celebrate the successes, but also recognize failures and cancellations. It helps with morale and provides closure, letting the team move on to the next project with a lot less baggage.
+
+## Tickets
+The scrum guide doesn't define "epic" or "story". I cannot find the attestation of their first use in "Agile" (capital A this time) frameworks, but they're definitely common. Jira ships with them by default, but this is your project and you get to define what they mean.
+* An **Epic** is a project with many other units of work. It's job is to be a container, but needs its own definition of done — generally beyond that 1 week upper limit I mentioned earlier.
+* A **Story** is focused on behaviour. It describes what the system needs to do, but not how. This opens implementation up to lots of freedom, and therefore diversity of opinion. 
+* A **Task** is focused on the minutiae of managing a codebase. Refactors, updating libraries, "rewrite documentation".
+* **Bugs** are to repair behaviour that:
+ * does not match the specification (ie previous stories)
+ * is "user" visible, for whatever a user is
+ * causes negative impact
+
+## Velocity
+This also doesn't appear in the scrum guide, yet it's always a major part of scrum consultancy and overbearing managers. I'm beginning to doubt people understand scrum.
+
+Regardless, velocity can be measured as either "how much does a team get done in a period" or "how long does it take for a single change to go from [idea] to [deployed]" (you can substitute any pair of states, which may or may not be columns on the kanban board). Ironically measuring velocity is actually meant to help with acceleration. The theory is that a team should be getting faster at getting things done as time progresses.
+
+Velocity is a helpful tool to see if your changes are helping or hurting a period, but don't ignore the actual output and chase a faster number. WIP limits will help you identify where bottlenecks and roadblocks are and therefore improve velocity.
+
+## Suggested States
+Have a general backlog that's vague and poorly estimated, and a more focused backlog of well defined work that's meant to be actively pulled from. "Code Review" is a useful column that should have a larger WIP limit than Doing, but still constrained. Moving something from "Doing" to "Blocked" isn't helpful, you're still doing it and unable to pick up a new task until you get it unblocked.
+
+# Closing Thoughts
+Thus concludes my trilogy of How to Work: [Monorepos](/blog/2025/03/02/arguments-for-monorepo/), [Trunks](http://127.0.0.1:5000/blog/2025/03/23/trunk-based-development/), and [Kanban](#). It's kind of amazing I wrote almost as much on just project management as I did on the other two topics combined, but it makes sense. Kanban won't work without an engaged "Product Owner" to help build definitions of done and rank priorities. Kanban won't work without engaged contributers willing to collaborate and estimate. And it won't work without an engaged management team who is invested in studying the current process and working to improve it.
+
+Maybe it's not that kanban works, but that when I work with an engaged and talented team we not only make good things but have a good time doing it. But that sounds too much like [People over Process](https://agilemanifesto.org/) and if that was a good idea I'm sure someone would have proposed it by now.
